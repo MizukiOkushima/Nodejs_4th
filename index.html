@@ -68,6 +68,54 @@
     <form id="form" action="">
         <input id="input" autocomplete="off" /><button>送信する</button>
     </form>
+
+    <!-- 参考:https://socket.io/docs/v4/tutorial/step-3 -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        // io()を使用することでクライアントサイドとサーバーサイドを連携可能になる
+        let socket = io();
+
+        // formタグの取得
+        const form = document.getElementById("form");
+        // inputタグの取得
+        const input = document.getElementById("input");
+        // messagesタグの取得
+        const messages = document.getElementById("messages");
+
+        // submit 送信した場合の処理
+        form.addEventListener("submit", (e) => {
+
+            // 送信したときにリロードを無くす
+            e.preventDefault();
+
+            // 文字が存在するときに送信する
+            if (input.value) {
+
+                // emit 送信する関数
+                socket.emit("chat message", input.value);
+                // 送信後、inputタグを空に設定
+                input.value = "";
+
+            }
+
+        });
+
+        // server.jsから送信されたメッセージを受け取る
+        // ulタグへメッセージを生成する
+        socket.on("chat message", (msg) => {
+
+            // li要素の生成
+            let item = document.createElement("li");
+            
+            // liのテキストにmsgを設定
+            item.textContent = msg;
+
+            // ulタグへ挿入
+            messages.appendChild(item);
+
+        });
+
+    </script>
 </body>
 
 </html>
