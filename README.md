@@ -4,7 +4,7 @@ Node.jsを使用してチャットアプリを作成する。<r>
 ### バージョンについて
 Node.js v22.1.0<br>
 
-#　環境構築
+###　環境構築
 package.jsonファイルの生成<br>
 `npm init -y`<br>
 <br>

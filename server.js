@@ -4,8 +4,8 @@ const express = require("express");
 // expressの使用
 const app = express();
 
-// httpモジュールの使用
-const http = express("http");
+// httpモジュールの読み込み
+const http = require("http");
 
 // サーバーの作成
 const server = http.createServer(app);
@@ -17,10 +17,19 @@ const io = require("socket.io")(server);
 // ポートの指定
 const PORT = 3000;
 
-// 第一引数 パスの指定
-
+// 第一引数 ディレクトリの指定
 app.get("/", (req, res) => {
     
+    // reqとresを受け取って以下の処理を行う
+
+    // ルートへアクセスしたときに文字を出力する
+    // res.send("Hello world!!");
+
+    // sendFile index.htmlをserver.jsで受け取る
+    // 引数にパスを指定する
+    // __dirname server.jsがある階層を指定できる
+    res.sendFile(__dirname + "/index.html");
+
 });
 
 // サーバーをローカルで立ち上げる
